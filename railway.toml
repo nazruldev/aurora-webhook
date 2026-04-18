@@ -1,8 +1,15 @@
 # https://docs.railway.com/deploy/config-as-code
+#
+# WAJIB di Railway → Service → Settings:
+#   Root Directory = aurora_backend
+# (folder yang berisi Dockerfile + package.json ini)
+#
+# Build memakai Dockerfile agar Node + npm start konsisten (hindari error Nixpacks).
+
 [build]
-builder = "nixpacks"
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
 
 [deploy]
-startCommand = "npm start"
 healthcheckPath = "/health"
 healthcheckTimeout = 300

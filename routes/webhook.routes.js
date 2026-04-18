@@ -10,6 +10,15 @@ import { isDuplicateMessage, markMessageProcessed } from '../lib/webhook-idempot
 
 const router = Router();
 
+/** Lynk mengirim POST — GET hanya untuk cek di browser bahwa service hidup */
+router.get('/webhook', (_req, res) => {
+  res.json({
+    ok: true,
+    service: 'aurora-webhook',
+    hint: 'Endpoint Lynk: POST JSON ke URL ini dengan header X-Lynk-Signature',
+  });
+});
+
 router.post('/webhook', async (req, res) => {
   const sig = req.get(lynkConfig.signatureHeaderName);
 
