@@ -1,0 +1,8 @@
+# https://docs.railway.com/deploy/config-as-code
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "npm start"
+healthcheckPath = "/health"
+healthcheckTimeout = 300
