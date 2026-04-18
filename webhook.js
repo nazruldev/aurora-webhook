@@ -19,3 +19,15 @@ server.on('error', (err) => {
   console.error('[server] listen error:', err);
   process.exit(1);
 });
+
+/** Railway mengirim SIGTERM saat redeploy/scale — bukan error aplikasi */
+function shutdown(signal) {
+  console.log(`[server] ${signal} — menutup koneksi…`);
+  server.close(() => {
+    console.log('[server] selesai.');
+    process.exit(0);
+  });
+  setTimeout(() => process.exit(0), 10_000).unref();
+}
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));
